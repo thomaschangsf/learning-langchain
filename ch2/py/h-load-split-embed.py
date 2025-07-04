@@ -6,7 +6,7 @@ from langchain_openai import OpenAIEmbeddings
 loader = TextLoader("./test.txt", encoding="utf-8")
 doc = loader.load()
 
-# Split the document
+# Split the document: how to chunk the document?
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 chunks = splitter.split_documents(doc)
 

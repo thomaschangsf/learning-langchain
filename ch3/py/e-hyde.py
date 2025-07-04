@@ -7,6 +7,14 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import chain
 from langchain_core.output_parsers import StrOutputParser
 
+
+# HYDE: is a RAG technique to handle vague queries.
+
+# It generates a passage to answer the question, and then uses the passage to answer the question.
+# It is a two-step process: 
+#   1. Generate a passage to answer the question.
+#   2. Use the passage to answer the question.
+
 # See docker command above to launch a postgres instance with pgvector enabled.
 connection = "postgresql+psycopg://langchain:langchain@localhost:6024/langchain"
 

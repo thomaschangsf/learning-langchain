@@ -1,3 +1,9 @@
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 from langsmith import wrappers, Client
 from pydantic import BaseModel, Field
 from openai import OpenAI

@@ -3,6 +3,10 @@
 - Only on python.
 - Read full docs here: https://github.com/AnswerDotAI/RAGatouille/blob/8183aad64a9a6ba805d4066dcab489d97615d316/README.md
 
+- RAGatouille is a library for RAG. It implements multiple RAG techniques, one of which is ColBERT. ColBERT is a RAG technique that uses a dense vector to represent the document. 
+- Colbert, at query time, computes an embedding for each token in the query. Each token does a similarity check against all the document embeddings. This can be expensive, so optimizations are possible 
+to reduce the number of comparisons by reducing the number of documents that are compared, or by using approximate nearest neighbor search.
+
 - To install run:
 
 ```bash

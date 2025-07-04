@@ -150,7 +150,7 @@ You have two options:
 
 1. Using the CLI directly:
 ```bash
-langgraph dev -c ch9/py/langgraph.json --verbose
+langgraph dev --config ch9/py/langgraph.json --verbose
 ```
 
 2. Using the installed script command:

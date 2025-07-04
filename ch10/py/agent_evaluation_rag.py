@@ -1,4 +1,9 @@
 from typing import Optional
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from langchain_openai import ChatOpenAI
 from langsmith import Client, evaluate, aevaluate
@@ -86,21 +91,42 @@ async def run_graph(inputs: dict) -> dict:
 async def run_eval(
     dataset_name: str,
     experiment_prefix: Optional[str] = None,
+    max_examples: int = 2,
 ) -> EvaluationResults:
     dataset = client.read_dataset(dataset_name=dataset_name)
+    
+    print(f"TWC: type(dataset)={type(dataset)}")
+    
+    # Get examples using the correct API method
+    examples = list(client.list_examples(dataset_id=dataset.id))
+    print(f"TWC: Found {len(examples)} examples in dataset")
+    
+    # Downsample to max_examples
+    if len(examples) > max_examples:
+        examples = examples[:max_examples]
+        print(f"TWC: Downsampled to {len(examples)} examples")
+    
+    # Create a new dataset with the downsampled examples
+    # We need to pass the examples to the evaluation function
     results = await aevaluate(
         run_graph,
-        data=dataset,
+        data=examples,  # Pass examples directly instead of dataset
         evaluators=[evaluate_agent],
         experiment_prefix=experiment_prefix,
     )
     return results
 
 
+    
+
 async def main():
-    experiment_results = await run_eval(dataset_name=DEFAULT_DATASET_NAME,
-                                        experiment_prefix="langchain-blogs-qa-evals")
+    experiment_results = await run_eval(
+        dataset_name=DEFAULT_DATASET_NAME,
+        experiment_prefix="langchain-blogs-qa-evals",
+        max_examples=5
+    )
 
 if __name__ == "__main__":
     import asyncio
     asyncio.run(main())
+

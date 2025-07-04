@@ -1,4 +1,6 @@
+print(1)
 import { ChatOpenAI } from '@langchain/openai';
+
 
 const model = new ChatOpenAI({ model: 'gpt-3.5-turbo' });
 

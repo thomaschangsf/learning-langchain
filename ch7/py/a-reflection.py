@@ -33,6 +33,8 @@ reflection_prompt = SystemMessage(
 
 
 def generate(state: State) -> State:
+    # state["messages"] contains the conversation history so far. This improves the quality of the output because it maintains context, enables iterative improvement, and allows for more natural responses., and help llm follow the system message at the start.
+    
     answer = model.invoke([generate_prompt] + state["messages"])
     return {"messages": [answer]}
 
